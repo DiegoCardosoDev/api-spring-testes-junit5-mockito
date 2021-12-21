@@ -12,11 +12,11 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//estrategia de geração de id
     private  Integer id;
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true)//email é unico
     private String email;
     private String password;
 }
