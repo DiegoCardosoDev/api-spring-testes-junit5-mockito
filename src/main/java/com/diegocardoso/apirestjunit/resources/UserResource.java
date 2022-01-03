@@ -1,6 +1,7 @@
 package com.diegocardoso.apirestjunit.resources;
 
 
+import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.services.UserService;
 import org.modelmapper.ModelMapper;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -21,10 +25,17 @@ public class UserResource {
     @Autowired
     private UserService service;
 
+    //metodo para retornar um user
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> findByid(@PathVariable Integer id) {
         return ResponseEntity.ok().body(mapper.map(service.findById(id), UserDTO.class));
+    }
 
+    //metodo para retornar todos user
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> findAll() {
+        return ResponseEntity.ok()
+                .body(service.findAll().stream().map(x -> mapper.map(x, UserDTO.class)).collect(Collectors.toList()));
 
     }
 
