@@ -1,7 +1,6 @@
 package com.diegocardoso.apirestjunit.resource;
 
 
-import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.services.UserService;
 import org.modelmapper.ModelMapper;
