@@ -1,4 +1,4 @@
-package com.diegocardoso.apirestjunit.resource.exeptions;
+package com.diegocardoso.apirestjunit.resources.exeptions;
 
 import org.hibernate.ObjectDeletedException;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.diegocardoso.apirestjunit.resource.exeptions;
+package com.diegocardoso.apirestjunit.resources.exeptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

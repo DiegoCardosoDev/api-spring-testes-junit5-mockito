@@ -1,4 +1,4 @@
-package com.diegocardoso.apirestjunit.resource;
+package com.diegocardoso.apirestjunit.resources;
 
 
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
