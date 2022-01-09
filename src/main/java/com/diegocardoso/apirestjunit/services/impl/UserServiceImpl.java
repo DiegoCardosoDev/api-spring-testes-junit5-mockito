@@ -4,6 +4,7 @@ import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.repositories.UserRepository;
 import com.diegocardoso.apirestjunit.services.UserService;
+import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrateViolationExeption;
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         Optional<User> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundExeption("objeto não encontrado..."));
+        return obj.orElseThrow(() -> new ObjectNotFoundExeption("usuario não encontrado..."));
     }
 
     public List<User> findAll() {
@@ -33,6 +34,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(UserDTO obj) {
+        findByEmail(obj);
         return repository.save(mapper.map(obj, User.class));
+    }
+
+    //metodo para verificar se email já existe
+    private void findByEmail(UserDTO obj) {
+        Optional<User> user = repository.findByEmail(obj.getEmail());
+
+        if (user.isPresent()) {
+            throw new DataIntegrateViolationExeption("email já cadastrado!");
+
+        }
+
+
     }
 }
