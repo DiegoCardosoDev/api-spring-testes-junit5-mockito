@@ -21,10 +21,12 @@ public class ResourceExeptionHandler {
     }
 
     @ExceptionHandler(DataIntegrateViolationExeption.class)
-    public ResponseEntity<StandardError> dataintegrateViolation(DataIntegrateViolationExeption ex, HttpServletRequest request) {
+    public ResponseEntity<StandardError> dataIntegration(DataIntegrateViolationExeption ex, HttpServletRequest request) {
         StandardError error =
                 new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body((error));
 
     }
+
+
 }
