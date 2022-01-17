@@ -3,6 +3,7 @@ package com.diegocardoso.apirestjunit.services.impl;
 import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.repositories.UserRepository;
+import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,6 +61,20 @@ class UserServiceImplTest {
         assertEquals(ID, response.getId());//-TESTA O ID
         assertEquals(NAME, response.getName());//-TESTA O NAME
         assertEquals(EMAIL, response.getEmail());//-TESTA O EMAIL
+    }
+
+
+    @Test
+    void whenFindByIdThenreturnAnObjectNotFoundExdeption() {//met
+        when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundExeption("objeto não encontrado"));
+
+        try {
+            service.findById(ID);
+        } catch (Exception exception) {
+            assertEquals(ObjectNotFoundExeption.class, exception.getClass());
+            assertEquals("objeto não encontrado", exception.getMessage());
+        }
+
     }
 
     @Test
