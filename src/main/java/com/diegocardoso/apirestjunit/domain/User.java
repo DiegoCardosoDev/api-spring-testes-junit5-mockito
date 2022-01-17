@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class User implements Serializable {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//estrategia de geração de id
@@ -19,4 +20,6 @@ public class User implements Serializable {
     @Column(unique = true)//email é unico
     private String email;
     private String password;
+
+
 }
