@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -27,6 +27,7 @@ class UserServiceImplTest {
     public static final String NAME = "deigo";
     public static final String EMAIL = "diego@dev";
     public static final String PASSWORD = "123";
+    @SuppressWarnings("NonAsciiCharacters")
     public static final String OBJETO_NÃO_ENCONTRADO = "objeto não encontrado";
     public static final String EMAIL_JÁ_CADASTRADO = "email já cadastrado!";
 
@@ -159,7 +160,13 @@ class UserServiceImplTest {
     }
 
     @Test
-    void delete() {
+    void deleteWhenSucsess() {
+
+        when(repository.findById(anyInt())).thenReturn(optionalUser);
+
+        doNothing().when(repository).deleteById(anyInt());
+        service.delete(ID);
+        verify(repository, times(1)).deleteById(anyInt());
     }
 
     private void startUser() {
