@@ -4,16 +4,15 @@ import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.repositories.UserRepository;
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,12 +78,35 @@ class UserServiceImplTest {
     }
 
     @Test
-    void findAll() {
+    void whenfindallThenReturnListOfUsers() {
+
+        when(repository.findAll()).thenReturn(List.of(user));
+
+        List<User> listResponse = service.findAll();
+
+        assertNotNull(listResponse);
+        assertEquals(1, listResponse.size());
+        assertEquals(User.class, listResponse.get(0).getClass());
+        assertEquals(ID, listResponse.get(0).getId());
+        assertEquals(NAME, listResponse.get(0).getName());
+        assertEquals(EMAIL, listResponse.get(0).getEmail());
+        assertEquals(PASSWORD, listResponse.get(0).getPassword());
     }
 
     @Test
-    void create() {
+    void whenCreateThesReturnSucess() {
+        when(repository.save(any())).thenReturn(user);
+
+        User reponse = service.create(userDTO);
+        assertNotNull(reponse);
+        assertEquals(User.class, reponse.getClass());
+        assertEquals(ID, reponse.getId());
+        assertEquals(NAME, reponse.getName());
+        assertEquals(EMAIL, reponse.getEmail());
+        assertEquals(PASSWORD, reponse.getPassword());
+
     }
+
 
     @Test
     void update() {
