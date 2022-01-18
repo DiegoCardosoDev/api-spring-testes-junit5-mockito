@@ -3,6 +3,7 @@ package com.diegocardoso.apirestjunit.services.impl;
 import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.repositories.UserRepository;
+import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrateViolationExeption;
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -104,6 +105,23 @@ class UserServiceImplTest {
         assertEquals(NAME, reponse.getName());
         assertEquals(EMAIL, reponse.getEmail());
         assertEquals(PASSWORD, reponse.getPassword());
+
+    }
+
+    @Test
+    void whenCreateThesReturnDataIntegrityViolationExeption() {
+        when(repository.findByEmail(anyString())).thenReturn(optionalUser);
+
+        try {
+
+            optionalUser.get().setId(2);
+            service.create(userDTO);
+
+        } catch (Exception ex) {
+            assertEquals(DataIntegrateViolationExeption.class, ex.getClass());
+            assertEquals("email já cadastrado!", ex.getMessage());
+        }
+
 
     }
 
