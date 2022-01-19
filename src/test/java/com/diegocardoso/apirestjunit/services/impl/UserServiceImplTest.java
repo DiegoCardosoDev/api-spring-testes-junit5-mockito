@@ -23,14 +23,17 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class UserServiceImplTest {
 
+
+    private User user;
+    private UserDTO userDTO;
+    private Optional<User> optionalUser;
+
     public static final Integer ID = 1;
     public static final String NAME = "deigo";
     public static final String EMAIL = "diego@dev";
     public static final String PASSWORD = "123";
-    @SuppressWarnings("NonAsciiCharacters")
     public static final String OBJETO_NAO_ENCONTRADO = "objeto não encontrado";
-    public static final String OBJ = OBJETO_NAO_ENCONTRADO;
-    public static final String EMAIL_JÁ_CADASTRADO = "email já cadastrado!";
+    public static final String EMAIL_jA_CADASTRADO = "email já cadastrado!";
 
     @InjectMocks
     private UserServiceImpl service;
@@ -41,9 +44,7 @@ class UserServiceImplTest {
     @Mock
     private ModelMapper mapper;
 
-    private User user;
-    private UserDTO userDTO;
-    private Optional<User> optionalUser;
+
 
 
     @BeforeEach
@@ -122,7 +123,7 @@ class UserServiceImplTest {
 
         } catch (Exception ex) {
             assertEquals(DataIntegrateViolationExeption.class, ex.getClass());
-            assertEquals(EMAIL_JÁ_CADASTRADO, ex.getMessage());
+            assertEquals(EMAIL_jA_CADASTRADO, ex.getMessage());
         }
 
 
@@ -154,7 +155,7 @@ class UserServiceImplTest {
 
         } catch (Exception ex) {
             assertEquals(DataIntegrateViolationExeption.class, ex.getClass());
-            assertEquals(EMAIL_JÁ_CADASTRADO, ex.getMessage());
+            assertEquals(EMAIL_jA_CADASTRADO, ex.getMessage());
         }
 
 

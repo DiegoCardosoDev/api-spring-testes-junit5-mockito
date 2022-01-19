@@ -10,7 +10,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +30,7 @@ class UserResourceTest {
     public static final String NAME = "deigo";
     public static final String EMAIL = "diego@dev";
     public static final String PASSWORD = "123";
+    public static final int INDEX = 0;
 
     private User user;
     private UserDTO userDTO;
@@ -64,8 +69,27 @@ class UserResourceTest {
     }
 
     @Test
-    void findAll() {
+    void whwnFindallThenReturnListofUserDto() {
+
+        when(service.findAll()).thenReturn(List.of(user));
+        when(mapper.map(any(), any())).thenReturn(userDTO);
+
+        ResponseEntity<List<UserDTO>> response = resource.findAll();
+
+        assertNotNull(response);//nao pode ser nulo
+        assertNotNull(response.getBody());//o objeto no corpo nao pode nulo
+        assertEquals(HttpStatus.OK, response.getStatusCode());//resposta deve ser ok(200)
+        assertEquals(ResponseEntity.class, response.getClass());//espera um reponse entity
+        assertEquals(ArrayList.class, response.getBody().getClass());//o corpo do reponse deve ser um array
+        assertEquals(UserDTO.class, response.getBody().get(INDEX).getClass());//espera um user dto no indice 0
+        assertEquals(ID, response.getBody().get(INDEX).getId());//o id deve ser o id do indice
+        assertEquals(NAME, response.getBody().get(INDEX).getName());//o nome deve ser do indice
+        assertEquals(EMAIL, response.getBody().get(INDEX).getEmail());//email deve ser do indice
+        assertEquals(PASSWORD, response.getBody().get(INDEX).getPassword());//password deve ser do indice
+
+
     }
+
 
     @Test
     void create() {
