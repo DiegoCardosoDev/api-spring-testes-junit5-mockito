@@ -1,11 +1,9 @@
 package com.diegocardoso.apirestjunit.resources.exeptions;
 
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
-import org.hibernate.ObjectDeletedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -19,6 +17,7 @@ class ResourceExeptionHandlerTest {
 
 
     public static final String OBJETO_NAO_ENCONTRADO = "objeto não encontrado";
+    
     @InjectMocks
     private ResourceExeptionHandler exeptionHandler;
 
