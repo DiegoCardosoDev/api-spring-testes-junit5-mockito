@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 public class UserDTO {
 
@@ -16,4 +16,7 @@ public class UserDTO {
     //escrita liberado e leitura block
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
 }
+
+

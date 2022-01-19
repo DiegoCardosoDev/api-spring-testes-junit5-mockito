@@ -1,6 +1,6 @@
 package com.diegocardoso.apirestjunit.resources.exeptions;
 
-import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrateViolationExeption;
+import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrityViolationExeption;
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
 import org.hibernate.ObjectDeletedException;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class ResourceExeptionHandler {
 
     }
 
-    @ExceptionHandler(DataIntegrateViolationExeption.class)
-    public ResponseEntity<StandardError> dataIntegration(DataIntegrateViolationExeption ex, HttpServletRequest request) {
+    @ExceptionHandler(DataIntegrityViolationExeption.class)
+    public ResponseEntity<StandardError> dataIntegration(DataIntegrityViolationExeption ex, HttpServletRequest request) {
         StandardError error =
                 new StandardError(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(), ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body((error));

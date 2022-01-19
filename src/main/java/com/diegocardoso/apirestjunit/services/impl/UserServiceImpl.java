@@ -4,7 +4,7 @@ import com.diegocardoso.apirestjunit.domain.User;
 import com.diegocardoso.apirestjunit.domain.userDTO.UserDTO;
 import com.diegocardoso.apirestjunit.repositories.UserRepository;
 import com.diegocardoso.apirestjunit.services.UserService;
-import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrateViolationExeption;
+import com.diegocardoso.apirestjunit.services.exeptions.DataIntegrityViolationExeption;
 import com.diegocardoso.apirestjunit.services.exeptions.ObjectNotFoundExeption;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = repository.findByEmail(obj.getEmail());
 
         if (user.isPresent() && !user.get().getId().equals(obj.getId())) {
-            throw new DataIntegrateViolationExeption("email já cadastrado!");
+            throw new DataIntegrityViolationExeption("email já cadastrado!");
 
         }
 
