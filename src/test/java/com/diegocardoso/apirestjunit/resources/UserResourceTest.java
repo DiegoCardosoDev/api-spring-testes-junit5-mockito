@@ -26,14 +26,14 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 class UserResourceTest {
 
+    private UserDTO userDTO = new UserDTO();
+    private User user = new User();
+
     public static final Integer ID = 1;
     public static final String NAME = "deigo";
     public static final String EMAIL = "diego@dev";
     public static final String PASSWORD = "123";
     public static final int INDEX = 0;
-
-    private User user;
-    private UserDTO userDTO;
 
 
     @InjectMocks
