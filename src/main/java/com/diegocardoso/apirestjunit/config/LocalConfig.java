@@ -12,6 +12,8 @@ import java.util.List;
 @Configuration
 @Profile("local")
 public class LocalConfig {
+
+
     @Autowired
     private UserRepository repository;
 
