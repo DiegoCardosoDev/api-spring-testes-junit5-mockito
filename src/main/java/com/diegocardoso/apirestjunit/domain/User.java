@@ -5,18 +5,22 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class User implements Serializable {
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//estrategia de geração de id
+    private Integer id;
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true)//email é unico
     private String email;
     private String password;
+
+
 }
